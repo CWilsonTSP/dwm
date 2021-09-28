@@ -1,3 +1,13 @@
+# Chad's build of dwm
+Related to my builds of:
+- [dwm](https://github.com/CWilsonTSP/dwm)
+- [dwmblocks](https://github.com/CWilsonTSP/dwmblocks)
+- [dmenu](https://github.com/CWilsonTSP/dmenu)
+- [st](https://github.com/CWilsonTSP/st)
+
+---
+
+# Original Readme
 # Luke's build of dwm
 
 ## FAQ
