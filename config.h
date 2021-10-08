@@ -21,12 +21,68 @@ static char *fonts[]          =
     // "JoyPixels:pixelsize=10:antialias=true:autohint=true", 
     "fontawesome:pixelsize=10:antialias=true:autohint=true"
 };
+
+
+#define base00 "#282c34";
+#define base01 "#353b45";
+#define base02 "#3e4451";
+#define base03 "#545862";
+#define base04 "#565c64";
+#define base05 "#abb2bf";
+#define base06 "#b6bdca";
+#define base07 "#c8ccd4";
+#define base08 "#e06c75";
+#define base09 "#d19a66";
+#define base0a "#e5c07b";
+#define base0b "#98c379";
+#define base0c "#56b6c2";
+#define base0d "#61afef";
+#define base0e "#c678dd";
+#define base0f "#be5046";
+
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
 static char selfgcolor[]            = "#eeeeee";
 static char selbordercolor[]        = "#c678dd";
-static char selbgcolor[]            = "#005577";
+// static char selbgcolor[]            = "#005577";
+static char selbgcolor[]            = "#c678dd";
+
+static char termcol0[] = base00;
+static char termcol1[] = base08;
+static char termcol2[] = base0b;
+static char termcol3[] = base0a;
+static char termcol4[] = base0d;
+static char termcol5[] = base0e;
+static char termcol6[] = base0c;
+static char termcol7[] = base05;
+static char termcol8[]  = base03;
+static char termcol9[]  = base08;
+static char termcol10[] = base0b;
+static char termcol11[] = base0a;
+static char termcol12[] = base0d;
+static char termcol13[] = base0e;
+static char termcol14[] = base0c;
+static char termcol15[] = base07;
+
+static char *termcolor[] = {
+  termcol0,
+  termcol1,
+  termcol2,
+  termcol3,
+  termcol4,
+  termcol5,
+  termcol6,
+  termcol7,
+  termcol8,
+  termcol9,
+  termcol10,
+  termcol11,
+  termcol12,
+  termcol13,
+  termcol14,
+  termcol15,
+};
 static char *colors[][3] = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
