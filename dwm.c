@@ -297,7 +297,7 @@ static char rawstext[1024];
 static int dwmblockssig;
 pid_t dwmblockspid = 0;
 static int screen;
-static int sw, sh;           /* X display screen geometry width, height */
+static int tw, sh;           /* X display screen geometry width, height */
 static int bh, blw = 0;      /* bar geometry */
 static int lrpad;            /* sum of left and right padding for text */
 static int (*xerrorxlib)(Display *, XErrorEvent *);
@@ -390,8 +390,8 @@ applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact)
 	*w = MAX(1, *w);
 	*h = MAX(1, *h);
 	if (interact) {
-		if (*x > sw)
-			*x = sw - WIDTH(c);
+		if (*x > tw)
+			*x = tw - WIDTH(c);
 		if (*y > sh)
 			*y = sh - HEIGHT(c);
 		if (*x + *w + 2 * c->bw < 0)
@@ -706,11 +706,11 @@ configurenotify(XEvent *e)
 
 	/* TODO: updategeom handling sucks, needs to be simplified */
 	if (ev->window == root) {
-		dirty = (sw != ev->width || sh != ev->height);
-		sw = ev->width;
+		dirty = (tw != ev->width || sh != ev->height);
+		tw = ev->width;
 		sh = ev->height;
 		if (updategeom() || dirty) {
-			drw_resize(drw, sw, bh);
+			drw_resize(drw, tw, bh);
 			updatebars();
 			for (m = mons; m; m = m->next) {
 				for (c = m->clients; c; c = c->next)
@@ -875,7 +875,7 @@ drawbar(Monitor *m)
 		/* drw_setscheme(drw, scheme[SchemeNorm]); */
 		/* tw = TEXTW(stext) - lrpad + 2; #<{(| 2px right padding |)}># */
 		/* drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0); */
-        sw = m-> drawstatusbar(m, bh, stext);
+        tw = m-> drawstatusbar(m, bh, stext);
 	}
 
 	for (c = m->clients; c; c = c->next) {
@@ -1352,7 +1352,7 @@ manage(Window w, XWindowAttributes *wa)
 	attachstack(c);
 	XChangeProperty(dpy, root, netatom[NetClientList], XA_WINDOW, 32, PropModeAppend,
 		(unsigned char *) &(c->win), 1);
-	XMoveResizeWindow(dpy, c->win, c->x + 2 * sw, c->y, c->w, c->h); /* some windows require this */
+	XMoveResizeWindow(dpy, c->win, c->x + 2 * tw, c->y, c->w, c->h); /* some windows require this */
 	setclientstate(c, NormalState);
 	if (c->mon == selmon)
 		unfocus(selmon->sel, 0);
@@ -1888,10 +1888,10 @@ setup(void)
 
 	/* init screen */
 	screen = DefaultScreen(dpy);
-	sw = DisplayWidth(dpy, screen);
+	tw = DisplayWidth(dpy, screen);
 	sh = DisplayHeight(dpy, screen);
 	root = RootWindow(dpy, screen);
-	drw = drw_create(dpy, screen, root, sw, sh);
+	drw = drw_create(dpy, screen, root, tw, sh);
 	if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
 		die("no fonts could be loaded.");
 	lrpad = drw->fonts->h;
@@ -2331,9 +2331,9 @@ updategeom(void)
 	{ /* default monitor setup */
 		if (!mons)
 			mons = createmon();
-		if (mons->mw != sw || mons->mh != sh) {
+		if (mons->mw != tw || mons->mh != sh) {
 			dirty = 1;
-			mons->mw = mons->ww = sw;
+			mons->mw = mons->ww = tw;
 			mons->mh = mons->wh = sh;
 			updatebarpos(mons);
 		}
