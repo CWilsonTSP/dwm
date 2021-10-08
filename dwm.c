@@ -197,7 +197,7 @@ static void detachstack(Client *c);
 static Monitor *dirtomon(int dir);
 static void drawbar(Monitor *m);
 static void drawbars(void);
-+static int drawstatusbar(Monitor *m, int bh, char* text);
+static int drawstatusbar(Monitor *m, int bh, char* text);
 static void enternotify(XEvent *e);
 static void expose(XEvent *e);
 static void focus(Client *c);
@@ -875,7 +875,7 @@ drawbar(Monitor *m)
 		/* drw_setscheme(drw, scheme[SchemeNorm]); */
 		/* tw = TEXTW(stext) - lrpad + 2; #<{(| 2px right padding |)}># */
 		/* drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0); */
-        tw = m-> drawstatusbar(m, bh, stext);
+        tw = m-> ww - drawstatusbar(m, bh, stext);
 	}
 
 	for (c = m->clients; c; c = c->next) {
@@ -1919,7 +1919,7 @@ setup(void)
 	/* init appearance */
 	/* scheme = ecalloc(LENGTH(colors), sizeof(Clr *)); */
 	scheme = ecalloc(LENGTH(colors) + 1, sizeof(Clr *));
-    scheme[LENGTH(colors)] = dwm_scm_create(drw, colors[0], 3);
+    scheme[LENGTH(colors)] = drw_scm_create(drw, colors[0], 3);
 	for (i = 0; i < LENGTH(colors); i++)
 		scheme[i] = drw_scm_create(drw, colors[i], 3);
 	/* init bars */
