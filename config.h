@@ -17,53 +17,88 @@ static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
 static char *fonts[]          = 
 { 
-    "monospace:size=14", 
+    // "monospace:size=14", 
     // "JoyPixels:pixelsize=10:antialias=true:autohint=true", 
-    "fontawesome:pixelsize=10:antialias=true:autohint=true"
+    "CaskaydiaCove Nerd Font Mono:pixelsize=20:antialias=true:autohint=true"
+    // "fontawesome:pixelsize=10:antialias=true:autohint=true"
 };
 
 
-#define base00 "#282c34";
-#define base01 "#353b45";
-#define base02 "#3e4451";
-#define base03 "#545862";
-#define base04 "#565c64";
-#define base05 "#abb2bf";
-#define base06 "#b6bdca";
-#define base07 "#c8ccd4";
-#define base08 "#e06c75";
-#define base09 "#d19a66";
-#define base0a "#e5c07b";
-#define base0b "#98c379";
-#define base0c "#56b6c2";
-#define base0d "#61afef";
-#define base0e "#c678dd";
-#define base0f "#be5046";
+// #define base00 "#282c34";
+// #define base01 "#353b45";
+// #define base02 "#3e4451";
+// #define base03 "#545862";
+// #define base04 "#565c64";
+// #define base05 "#abb2bf";
+// #define base06 "#b6bdca";
+// #define base07 "#c8ccd4";
+// #define base08 "#e06c75";
+// #define base09 "#d19a66";
+// #define base0a "#e5c07b";
+// #define base0b "#98c379";
+// #define base0c "#56b6c2";
+// #define base0d "#61afef";
+// #define base0e "#c678dd";
+// #define base0f "#be5046";
 
-static char normbgcolor[]           = "#222222";
-static char normbordercolor[]       = "#444444";
-static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#eeeeee";
-static char selbordercolor[]        = "#c678dd";
-// static char selbgcolor[]            = "#005577";
-static char selbgcolor[]            = "#c678dd";
+#define base0 "#2E3440" // "#2E3440"
+#define base1 "#3B4252" // "#3B4252"
+#define base2 "#434C5E" // "#434C5E"
+#define base3 "#4C566A" // "#4C566A"
+#define base4 "#D8DEE9" // "#D8DEE9"
+#define base5 "#E5E9F0" // "#E5E9F0"
+#define base6 "#ECEFF4" // "#ECEFF4"
+#define base7 "#8FBCBB" // "#8FBCBB"
+#define base8 "#88C0D0" // "#88C0D0"
+#define base9 "#81A1C1" // "#81A1C1"
+#define base10 "#5E81AC" // "#5E81AC"
+#define base11 "#BF616A" // "#BF616A"
+#define base12 "#D08770" // "#D08770"
+#define base13 "#EBCB8B" // "#EBCB8B"
+#define base14 "#A3BE8C" // "#A3BE8C"
+#define base15 "#B48EAD" // "#B48EAD"
 
-static char termcol0[] = base00;
-static char termcol1[] = base08;
-static char termcol2[] = base0b;
-static char termcol3[] = base0a;
-static char termcol4[] = base0d;
-static char termcol5[] = base0e;
-static char termcol6[] = base0c;
-static char termcol7[] = base05;
-static char termcol8[]  = base03;
-static char termcol9[]  = base08;
-static char termcol10[] = base0b;
-static char termcol11[] = base0a;
-static char termcol12[] = base0d;
-static char termcol13[] = base0e;
-static char termcol14[] = base0c;
-static char termcol15[] = base07;
+static char normbgcolor[]           = "#2E3440"; // "#2E3440"
+static char normbordercolor[]       = "#3b4252"; // "#3b4252"
+static char normfgcolor[]           = "#4C566A"; // "#4C566A"
+
+static char selfgcolor[]            = "#81a1ca"; // "#81a1ca"
+static char selbordercolor[]        = "#88C0D0"; // "#88C0D0"
+static char selbgcolor[]            = "#5e81ac"; // "#5e81ac"
+
+static char termcol0[] = base1;
+static char termcol1[] = base11;
+static char termcol2[] = base14;
+static char termcol3[] = base13;
+static char termcol4[] = base9;
+static char termcol5[] = base15;
+static char termcol6[] = base8;
+static char termcol7[] = base5;
+static char termcol8[]  = base3;
+static char termcol9[]  = base11;
+static char termcol10[] = base14;
+static char termcol11[] = base13;
+static char termcol12[] = base9;
+static char termcol13[] = base15;
+static char termcol14[] = base7;
+static char termcol15[] = base6;
+
+// static char termcol0[] = base00;
+// static char termcol1[] = base08;
+// static char termcol2[] = base0b;
+// static char termcol3[] = base0a;
+// static char termcol4[] = base0d;
+// static char termcol5[] = base0e;
+// static char termcol6[] = base0c;
+// static char termcol7[] = base05;
+// static char termcol8[]  = base03;
+// static char termcol9[]  = base08;
+// static char termcol10[] = base0b;
+// static char termcol11[] = base0a;
+// static char termcol12[] = base0d;
+// static char termcol13[] = base0e;
+// static char termcol14[] = base0c;
+// static char termcol15[] = base07;
 
 static char *termcolor[] = {
   termcol0,
@@ -102,8 +137,8 @@ static Sp scratchpads[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "",   "",   "",    "",    "",   "",    "",    "",    "" };
-// static const char *tags[] = { "dev", "www", "chat", "expl", "doc", "musc", "play", "mail", "htop" }; //old; use this if icons don't work
+// static const char *tags[] = { "",   "爵",   "3",    "4",    "5",   "6",    "7",    "",    "9" };
+static const char *tags[] = { "dev", "www", "chat", "expl", "doc", "musc", "play", "mail", "htop" }; //old; use this if icons don't work
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -112,6 +147,7 @@ static const Rule rules[] = {
 	*/
 	/* class    instance      title       	 tags mask    isfloating   isterminal  noswallow  monitor */
 	// { "Gimp",     NULL,       NULL,       	    1 << 8,       0,           0,         0,        -1 },
+	{ "Thunderbird",     NULL,       NULL,       	    1 << 7,       0,           0,         0,        -1 },
 	{ "St",     "st",       "htop",       	    1 << 8,       0,           0,         0,        -1 },
 	{ TERMCLASS,  NULL,       NULL,       	    0,            0,           1,         0,        -1 },
 	{ NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
@@ -172,7 +208,7 @@ static const char *termcmd[]  = { TERMINAL, NULL };
  */
 ResourcePref resources[] = {
 		{ "color0",		STRING,	&normbordercolor },
-		{ "color8",		STRING,	&selbordercolor },
+		{ "color4",		STRING,	&selbordercolor },
 		{ "color0",		STRING,	&normbgcolor },
 		{ "color4",		STRING,	&normfgcolor },
 		{ "color0",		STRING,	&selfgcolor },
@@ -213,9 +249,9 @@ static Key keys[] = {
 	TAGKEYS(			XK_9,		8)
 	{ MODKEY,			XK_0,		view,		{.ui = ~0 } },
 	{ MODKEY|ShiftMask,		XK_0,		tag,		{.ui = ~0 } },
-	{ MODKEY,			XK_minus,	spawn,		SHCMD("pamixer --allow-boost -d 5; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,			XK_minus,	spawn,		SHCMD("pamixer --allow-boost -d 5; notify-send --hint=string:x-dunst-stack-tag:volume \"Volume set to $(pamixer --get-volume)\"; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga; kill -44 $(pidof dwmblocks)") },
 	{ MODKEY|ShiftMask,		XK_minus,	spawn,		SHCMD("pamixer --allow-boost -d 15; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,			XK_equal,	spawn,		SHCMD("pamixer --allow-boost -i 5; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,			XK_equal,	spawn,		SHCMD("pamixer --allow-boost -i 5; notify-send --hint=string:x-dunst-stack-tag:volume \"Volume set to $(pamixer --get-volume)\"; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga; kill -44 $(pidof dwmblocks)") },
 	{ MODKEY|ShiftMask,		XK_equal,	spawn,		SHCMD("pamixer --allow-boost -i 15; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga; kill -44 $(pidof dwmblocks)") },
 	{ MODKEY,			XK_BackSpace,	spawn,		SHCMD("sysact") },
 	{ MODKEY|ShiftMask,		XK_BackSpace,	spawn,		SHCMD("sysact") },
@@ -227,7 +263,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD(TERMINAL " -e sudo nmtui") },
 	{ MODKEY,			XK_y,		spawn,	SHCMD(TERMINAL " -e htop")},
-	{ MODKEY,			XK_e,		spawn,		SHCMD(TERMINAL " -e neomutt ; pkill -RTMIN+12 dwmblocks; rmdir ~/.abook") },
+	{ MODKEY,			XK_e,		spawn,		SHCMD("thunderbird") },
 	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD(TERMINAL " -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") },
 	{ MODKEY,			XK_r,		spawn,		SHCMD(TERMINAL " -e lf") },
 	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD(TERMINAL " -e htop") },
