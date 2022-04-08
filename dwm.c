@@ -562,8 +562,8 @@ buttonpress(XEvent *e)
 			occ |= c->tags == 255 ? 0 : c->tags;
 		do {
 			/* do not reserve space for vacant tags */
-			if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
-				continue;
+			// if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
+			// 	continue;
 			x += TEXTW(tags[i]);
 		} while (ev->x >= x && ++i < LENGTH(tags));
 		if (i < LENGTH(tags)) {
@@ -886,12 +886,18 @@ drawbar(Monitor *m)
 	x = 0;
 	for (i = 0; i < LENGTH(tags); i++) {
 		/* do not draw vacant tags */
-		if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
-		continue;
+		// if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
+		// continue;
 
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+		// drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], 1);
+        /* draw vacant tags */
+        if (occ & 1 << i)
+            drw_rect(drw, x + boxs, boxs, boxw, boxw, m == selmon && selmon->sel && selmon->sel->tags & 1 << i, urg & 1 << i);
+
+
 		x += w;
 	}
 	w = blw = TEXTW(m->ltsymbol);
@@ -995,12 +1001,6 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 					buf[7] = '\0';
 					drw_clr_create(drw, &drw->scheme[ColBg], buf);
 					i += 7;
-				} else if (text[i] == 'C') {
-					int c = atoi(text + ++i);
-					drw_clr_create(drw, &drw->scheme[ColFg], termcolor[c]);
-				} else if (text[i] == 'B') {
-					int c = atoi(text + ++i);
-					drw_clr_create(drw, &drw->scheme[ColBg], termcolor[c]);
 				} else if (text[i] == 'd') {
 					drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
 					drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
