@@ -19,7 +19,8 @@ static char *fonts[]          =
 { 
     // "monospace:size=14", 
     // "JoyPixels:pixelsize=10:antialias=true:autohint=true", 
-    "CaskaydiaCove Nerd Font Mono:pixelsize=20:antialias=true:autohint=true"
+    "CascadiaMonoPL:pixelsize=20:antialias=true:autohint=true",
+    "CaskaydiaCove Nerd Font Mono:pixelsize=24:antialias=true:autohint=true"
     // "fontawesome:pixelsize=10:antialias=true:autohint=true"
 };
 
@@ -137,8 +138,8 @@ static Sp scratchpads[] = {
 };
 
 /* tagging */
-// static const char *tags[] = { "",   "爵",   "3",    "4",    "5",   "6",    "7",    "",    "9" };
-static const char *tags[] = { "dev", "www", "chat", "expl", "doc", "musc", "play", "mail", "htop" }; //old; use this if icons don't work
+static const char *tags[] = { "",   "",   "",    "",    "",   "",    "",    "",    "" };
+// static const char *tags[] = { "dev", "www", "chat", "expl", "doc", "musc", "play", "mail", "htop" }; //old; use this if icons don't work
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -147,8 +148,13 @@ static const Rule rules[] = {
 	*/
 	/* class    instance      title       	 tags mask    isfloating   isterminal  noswallow  monitor */
 	// { "Gimp",     NULL,       NULL,       	    1 << 8,       0,           0,         0,        -1 },
+	{ "Brave",     NULL,       NULL,       	    1 << 1,       0,           0,         0,        -1 },
+	{ "discord",     NULL,       NULL,       	    1 << 2,       0,           0,         0,        -1 },
+	{ "slack",     NULL,       NULL,       	    1 << 2,       0,           0,         0,        -1 },
+	{ "Slack",     NULL,       NULL,       	    1 << 2,       0,           0,         0,        -1 },
 	{ "Thunderbird",     NULL,       NULL,       	    1 << 7,       0,           0,         0,        -1 },
 	{ "St",     "st",       "htop",       	    1 << 8,       0,           0,         0,        -1 },
+	{ "St",     "st",       "sb-popupgrade",       	    1 << 8,       0,           0,         0,        -1 },
 	{ TERMCLASS,  NULL,       NULL,       	    0,            0,           1,         0,        -1 },
 	{ NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
 	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     1,           1,         0,        -1 },
@@ -208,11 +214,12 @@ static const char *termcmd[]  = { TERMINAL, NULL };
  */
 ResourcePref resources[] = {
 		{ "color0",		STRING,	&normbordercolor },
-		{ "color4",		STRING,	&selbordercolor },
+		// { "color4",		STRING,	&selbordercolor },
+		{ "colorOrange",		STRING,	&selbordercolor },
 		{ "color0",		STRING,	&normbgcolor },
-		{ "color4",		STRING,	&normfgcolor },
-		{ "color0",		STRING,	&selfgcolor },
-		{ "color4",		STRING,	&selbgcolor },
+		{ "colorLight",		STRING,	&normfgcolor },
+		{ "colorLight",		STRING,	&selfgcolor },
+		{ "colorOrange",		STRING,	&selbgcolor },
 		{ "borderpx",		INTEGER, &borderpx },
 		{ "snap",		INTEGER, &snap },
 		{ "showbar",		INTEGER, &showbar },
@@ -249,10 +256,10 @@ static Key keys[] = {
 	TAGKEYS(			XK_9,		8)
 	{ MODKEY,			XK_0,		view,		{.ui = ~0 } },
 	{ MODKEY|ShiftMask,		XK_0,		tag,		{.ui = ~0 } },
-	{ MODKEY,			XK_minus,	spawn,		SHCMD("pamixer --allow-boost -d 5; notify-send --hint=string:x-dunst-stack-tag:volume \"Volume set to $(pamixer --get-volume)\"; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,		XK_minus,	spawn,		SHCMD("pamixer --allow-boost -d 15; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,			XK_equal,	spawn,		SHCMD("pamixer --allow-boost -i 5; notify-send --hint=string:x-dunst-stack-tag:volume \"Volume set to $(pamixer --get-volume)\"; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,		XK_equal,	spawn,		SHCMD("pamixer --allow-boost -i 15; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,			XK_minus,	spawn,		SHCMD("volume down") },
+	{ MODKEY|ShiftMask,		XK_minus,	spawn,		SHCMD("volume down1") },
+	{ MODKEY,			XK_equal,	spawn,		SHCMD("volume up") },
+	{ MODKEY|ShiftMask,		XK_equal,	spawn,		SHCMD("volume up1") },
 	{ MODKEY,			XK_BackSpace,	spawn,		SHCMD("sysact") },
 	{ MODKEY|ShiftMask,		XK_BackSpace,	spawn,		SHCMD("sysact") },
 
@@ -358,8 +365,10 @@ static Key keys[] = {
 	{ MODKEY,			XK_Scroll_Lock,	spawn,		SHCMD("killall screenkey || screenkey &") },
 
 	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
-	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 5; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga; kill -44 $(pidof dwmblocks)") },
-	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 5; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioLowerVolume,	spawn,	SHCMD("volume down") },
+	{ ShiftMask, XF86XK_AudioLowerVolume,spawn,	SHCMD("volume down1") },
+	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("volume up") },
+	{ ShiftMask, XF86XK_AudioRaiseVolume,spawn,	SHCMD("volume up1") },
 	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev") },
 	{ 0, XF86XK_AudioNext,		spawn,		SHCMD("mpc next") },
 	{ 0, XF86XK_AudioPause,		spawn,		SHCMD("mpc pause") },
@@ -385,6 +394,8 @@ static Key keys[] = {
 	{ 0, XF86XK_TouchpadOn,		spawn,		SHCMD("synclient TouchpadOff=0") },
 	{ 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("brightness up") },
 	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("brightness down") },
+	{ ShiftMask, XF86XK_MonBrightnessUp,	spawn,		SHCMD("brightness up1") },
+	{ ShiftMask, XF86XK_MonBrightnessDown,	spawn,		SHCMD("brightness down1") },
 
 	/* { MODKEY|Mod4Mask,              XK_h,      incrgaps,       {.i = +1 } }, */
 	/* { MODKEY|Mod4Mask,              XK_l,      incrgaps,       {.i = -1 } }, */
